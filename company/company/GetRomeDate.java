@@ -6,42 +6,44 @@ public class GetRomeDate {
 
     RomeDigits romeDigits;
     RomeDigits[] romeDigitsArray = RomeDigits.values();
-    Scanner scanner = new Scanner(System.in);
 
-    public static boolean containRome(String number){                              //проверяю сразу на риские цифры и на их от 1 до 10.
-        for (RomeDigits rome:RomeDigits.values()   ) {                      //если вызов этого метода будет фолсе, то надо ошибку выбрасывать
-            if (rome.name().equals(number)){
+    public boolean containRome(String number) {                              //проверяю сразу на риские цифры и на их от 1 до 10.
+        for (RomeDigitsToTen rome : RomeDigitsToTen.values()) {                      //если вызов этого метода будет фолсе, то надо ошибку выбрасывать
+            if (rome.name().equals(number)) {
                 return true;
             }
         }
         return false;
     }
 
-    public String getRomeSecondNumber() throws MyRomeNumberException {                 //надо объявлять числа в начале главного метода/ класса
-        String secondNumber = scanner.next();                                      //второе число. Если неверное, то ошибка
-        if (!containRome(secondNumber)){
+    public String getRomeSecondNumber(String RomeSecondNumber) throws MyRomeNumberException {
+        if (!containRome(RomeSecondNumber)) {
             throw new MyRomeNumberException("Roman number expected from 1 to 10");
         }
-        return secondNumber;
+        return RomeSecondNumber;
     }
 
-    String calculateRome(String firstNumber, String symbol, String secondNumber){
+    String calculateRome(String firstNumber, String symbol, String secondNumber) {
         String romeAnswer = null;
         int first = RomeDigits.valueOf(firstNumber).getNumber();
         int second = RomeDigits.valueOf(secondNumber).getNumber();
         int result = 0;
-        switch (symbol){
-            case "+": result = first + second;
+        switch (symbol) {
+            case "+":
+                result = first + second;
                 break;
-            case "-": result = first - second;
+            case "-":
+                result = first - second;
                 break;
-            case "*": result = first * second;
+            case "*":
+                result = first * second;
                 break;
-            case "/": result = first / second;
+            case "/":
+                result = first / second;
                 break;
         }
-        for (RomeDigits rome:RomeDigits.values()  ) {
-            if (rome.getNumber() == result){
+        for (RomeDigits rome : RomeDigits.values()) {
+            if (rome.getNumber() == result) {
                 return romeAnswer = rome.name();
             }
         }

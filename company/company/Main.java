@@ -5,42 +5,40 @@ import java.util.Scanner;
 public class Main {
 
 
-    public static void main(String[] args) throws MyNumberExсeption {
-
-        Scanner scanner = new Scanner(System.in);
-        String firstNumber = scanner.next();
-
-//        if (scanner.hasNextInt()) {
-//            firstNumber = scanner.next();
-//        }
-
-
+    public static void main(String[] args) throws Exception {
         GetDate getDate = new GetDate();
-        Main main = new Main();
         GetRomeDate getRomeDate = new GetRomeDate();
 
-        int result = 0;
+        Scanner scanner = new Scanner(System.in);
+        String expressionWithSpace = scanner.nextLine();
+        String expression = expressionWithSpace.replaceAll(" ", "");
+
+        getDate.checkSymbol(expression);
+
+        String[] arrayEx = expression.split("[+]|-|[*]|/");
+
+        String firstNumber = arrayEx[0];
+        String secondNumber = arrayEx[1];
+
         String stringResult = null;
 
 
-        if (GetRomeDate.containRome(firstNumber)) {
+        if (getRomeDate.containRome(firstNumber)) {
             try {
-                stringResult = getRomeDate.calculateRome(firstNumber, getDate.getSymbol(), getRomeDate.getRomeSecondNumber());
+                stringResult = getRomeDate.calculateRome(firstNumber, getDate.getSymbol(expression), getRomeDate.getRomeSecondNumber(secondNumber));
+                System.out.println(stringResult);
             } catch (MySymbolException | MyRomeNumberException e) {
                 e.printStackTrace();
             }
         } else if (getDate.checkFirstNumber(firstNumber)) {
             try {
-                result = getDate.calculate(firstNumber, getDate.getSymbol(), getDate.getSecondNumber());
+                stringResult = getDate.calculate(firstNumber, getDate.getSymbol(expression), getDate.getSecondNumber(secondNumber));
+                System.out.println(stringResult);
             } catch (MySymbolException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Something wrong");
+            throw new MyNumberExсeption("IncorrectFirstNumber");
         }
-
-        if (result == 0)System.out.println(stringResult);
-        else System.out.println(result);
-
     }
 }
