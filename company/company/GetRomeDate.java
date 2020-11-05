@@ -4,11 +4,9 @@ import java.util.Scanner;
 
 public class GetRomeDate {
 
-    RomeDigits romeDigits;
-    RomeDigits[] romeDigitsArray = RomeDigits.values();
-
-    public boolean containRome(String number) {                              //проверяю сразу на риские цифры и на их от 1 до 10.
-        for (RomeDigitsToTen rome : RomeDigitsToTen.values()) {                      //если вызов этого метода будет фолсе, то надо ошибку выбрасывать
+    //check from one to ten Rome digits
+    public boolean containRome(String number) {
+        for (RomeDigitsToTen rome : RomeDigitsToTen.values()) {
             if (rome.name().equals(number)) {
                 return true;
             }
@@ -16,6 +14,7 @@ public class GetRomeDate {
         return false;
     }
 
+    //getting second Rome number
     public String getRomeSecondNumber(String RomeSecondNumber) throws MyRomeNumberException {
         if (!containRome(RomeSecondNumber)) {
             throw new MyRomeNumberException("Roman number expected from 1 to 10");
@@ -23,6 +22,7 @@ public class GetRomeDate {
         return RomeSecondNumber;
     }
 
+    //calculator for Rome digits
     String calculateRome(String firstNumber, String symbol, String secondNumber) {
         String romeAnswer = null;
         int first = RomeDigits.valueOf(firstNumber).getNumber();
